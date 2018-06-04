@@ -1,0 +1,4 @@
+DOCUMENTROOT=/public
+SHORT_OPEN_TAG=OFF
+APP_LOG=errorlog
+APP_ENV=local

@@ -14,3 +14,13 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/config', function() {
+   $data = [];
+   
+   $data['environment'] = App::environment();
+   $data['env_vars'] = $_ENV;
+   $data['config'] = config();
+   
+   dd($data);
+});
