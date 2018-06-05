@@ -1,0 +1,44 @@
+#!/bin/bash -e
+#
+# S2I assemble script, designed to overwrite the 's2i-ubuntu-laravel5x' image.
+# The 'assemble' script builds your application source so that it is ready to run.
+#
+# For more information refer to the documentation:
+#	https://github.com/openshift/source-to-image/blob/master/docs/builder_image.md
+#
+
+if [[ "$1" == "-h" ]]; then
+	# If the 's2i-ubuntu-laravel5x' assemble script is executed with '-h' flag,
+	# print the usage.
+	exec /usr/libexec/s2i/usage
+else
+    export APP_ENV="${APP_ENV:-production}"
+fi
+
+# Restore artifacts from the previous build (if they exist).
+#
+if [ "$(ls /tmp/artifacts/ 2>/dev/null)" ]; then
+  echo "---> Restoring build artifacts..."
+  mv /tmp/artifacts/. ./
+fi
+
+echo "---> Migrating Laravel application into image."
+cp -Rf /tmp/src/. ./
+
+echo "---> Building required dependencies and processing assets"
+
+if [ -f composer.json ]; then
+  echo "Found 'composer.json', installing dependencies using composer.phar... "
+  composer install --no-interaction --no-ansi --optimize-autoloader
+fi
+
+if [ -f package.json ]; then
+  echo "Found 'composer.json', installing dependencies using composer.phar... "
+  npm install
+
+  if grep -q '"scripts"' package.json; then
+    if grep -q '"$APP_ENV"' package.json; then
+      npm run $APP_ENV
+    fi
+  fi
+fi
