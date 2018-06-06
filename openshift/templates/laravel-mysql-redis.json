@@ -265,6 +265,15 @@
                     }
                   },
                   {
+                    "name": "REDIS_PASSWORD",
+                    "valueFrom": {
+                      "secretKeyRef": {
+                        "name": "${NAME}",
+                        "key": "redisPassword"
+                      }
+                    }
+                  },
+                  {
                     "name": "APP_KEY",
                     "value": "${LARAVEL_APP_KEY}"
                   },

@@ -43,3 +43,5 @@ if [ -f package.json ]; then
     fi
   fi
 fi
+
+fix-permissions ./
