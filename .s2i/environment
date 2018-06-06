@@ -1,4 +1,4 @@
 DOCUMENTROOT=/public
 SHORT_OPEN_TAG=ON
-APP_LOG=errorlog
+APP_LOG=stderr
 APP_VAR_THINGY=whoopdidoo
