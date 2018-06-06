@@ -33,11 +33,12 @@ if [ -f composer.json ]; then
 fi
 
 if [ -f package.json ]; then
-  echo "Found 'package.json', installing npm dependencies and building where required... "
+  echo "Found 'package.json', installing node dependencies using npm and building where required... "
   npm install
 
   if grep -q '"scripts"' package.json; then
     if grep -q '"$APP_ENV"' package.json; then
+      echo "Found build option for ${APP_ENV}, building assets..."
       npm run $APP_ENV
     fi
   fi
