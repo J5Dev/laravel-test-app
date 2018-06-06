@@ -33,7 +33,7 @@ if [ -f composer.json ]; then
 fi
 
 if [ -f package.json ]; then
-  echo "Found 'composer.json', installing dependencies using composer.phar... "
+  echo "Found 'package.json', installing npm dependencies and building where required... "
   npm install
 
   if grep -q '"scripts"' package.json; then

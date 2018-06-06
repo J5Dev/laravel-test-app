@@ -10,7 +10,7 @@
       "iconClass": "icon-laravel"
     }
   },
-  "message": "The following service(s) have been created in your project: ${NAME}, ${DATABASE_SERVICE_NAME}, ${REDIS_SERVICE_NAME}.",
+  "message": "The following service(s) have been created in your project: ${NAME}, ${DATABASE_SERVICE_NAME}, ${REDIS_DATABASE_SERVICE_NAME}.",
   "labels": {
     "template": "laravel-mysql-redis-persistent"
   },
@@ -23,7 +23,8 @@
       },
       "stringData": {
         "databaseUser": "${DATABASE_USER}",
-        "databasePassword": "${DATABASE_PASSWORD}"
+        "databasePassword": "${DATABASE_PASSWORD}",
+        "redisPassword": "${REDIS_PASSWORD}"
       }
     },
     {
@@ -163,7 +164,7 @@
               "execNewPod": {
                 "containerName": "laravel-mysql-redis-persistent",
                 "command": [
-                  "./migrate-database.sh"
+                  "./openshift/cmd/migrate-database.sh"
                 ]
               }
             }
@@ -425,19 +426,6 @@
       }
     },
     {
-      "kind": "Secret",
-      "apiVersion": "v1",
-      "metadata": {
-        "annotations": {
-          "template.openshift.io/expose-password": "{.data['redis-database-password']}"
-        },
-        "name": "${REDIS_DATABASE_SERVICE_NAME}"
-      },
-      "stringData": {
-        "redis-database-password": "${REDIS_PASSWORD}"
-      }
-    },
-    {
       "kind": "Service",
       "apiVersion": "v1",
       "metadata": {
@@ -515,8 +503,8 @@
                     "name": "REDIS_PASSWORD",
                     "valueFrom": {
                       "secretKeyRef": {
-                        "key": "redis-database-password",
-                        "name": "${REDIS_DATABASE_SERVICE_NAME}"
+                        "key": "redisPassword",
+                        "name": "${NAME}"
                       }
                     }
                   }

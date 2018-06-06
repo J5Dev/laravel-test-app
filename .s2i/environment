@@ -1,4 +1,4 @@
 DOCUMENTROOT=/public
 SHORT_OPEN_TAG=OFF
 APP_LOG=errorlog
-APP_ENV=local
+CHRIS_APP_VAR_THINGY=whoopdidoo
