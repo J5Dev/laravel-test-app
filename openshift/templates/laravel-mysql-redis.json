@@ -164,7 +164,7 @@
               "execNewPod": {
                 "containerName": "laravel-mysql-redis-persistent",
                 "command": [
-                  "./openshift/cmd/migrate-database.sh"
+                  "./migrate-database.sh"
                 ]
               }
             }
