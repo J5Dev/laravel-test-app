@@ -29,7 +29,7 @@ echo "---> Building required dependencies and processing assets"
 
 if [ -f composer.json ]; then
   echo "Found 'composer.json', installing dependencies using composer.phar... "
-  composer install --no-interaction --no-ansi --optimize-autoloader
+  composer install --no-interaction --no-ansi --no-sugest --optimize-autoloader
 fi
 
 if [ -f package.json ]; then
